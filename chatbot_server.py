@@ -2,7 +2,10 @@ from flask import Flask, request, jsonify
 import openai
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+if not openai.api_key:
+    raise ValueError("OPENAI_API_KEY environment variable is not set")
 
 chatbot_server = Flask(__name__)
 
@@ -12,6 +15,7 @@ def chat():
     if not user_message:
         return jsonify({"error": "Message is required"}), 400
 
+    # Send the user's message to OpenAI's Chat API
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -22,6 +26,8 @@ def chat():
 
     reply = response["choices"][0]["message"]["content"]
     return jsonify({"reply": reply})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     chatbot_server.run(host="0.0.0.0", port=5000)
