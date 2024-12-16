@@ -22,8 +22,8 @@ def chat():
             return jsonify({"error": "Message is required"}), 400
 
         # Use the ChatCompletion API
-        response = openai.Chat.create(
-            model="gpt-3.5-turbo",  # Use a chat model like gpt-3.5-turbo or gpt-4
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant for a UV air purifier company."},
                 {"role": "user", "content": user_message}
@@ -33,7 +33,7 @@ def chat():
 
         reply = response['choices'][0]['message']['content'].strip()
         return jsonify({"reply": reply})
-    except Exception as e:  # Ensure the `except` block is present
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
