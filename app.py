@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify, send_from_directory
-import openai  # Correctly import the OpenAI library
+import openai
 
 # Set your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -21,14 +21,17 @@ def chat():
         if not user_message:
             return jsonify({"error": "Message is required"}), 400
 
-        # Send the user's message to OpenAI's API
-        response = openai.Completion.create(  # Use `openai.Completion.create`
-            model="text-davinci-003",
-            prompt=f"You are a helpful assistant for a UV air purifier company.\nUser: {user_message}\nAssistant:",
+        # Use the ChatCompletion API
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Use a chat model like gpt-3.5-turbo or gpt-4
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant for a UV air purifier company."},
+                {"role": "user", "content": user_message}
+            ],
             max_tokens=150
         )
 
-        reply = response['choices'][0]['text'].strip()
+        reply = response['choices'][0]['message']['content'].strip()
         return jsonify({"reply": reply})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
