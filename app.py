@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify, send_from_directory
-from openai import OpenAI
+import openai  # Correctly import the OpenAI library
 
 # Set your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -22,7 +22,7 @@ def chat():
             return jsonify({"error": "Message is required"}), 400
 
         # Send the user's message to OpenAI's API
-        response = OpenAI().completions.create(
+        response = openai.Completion.create(  # Use `openai.Completion.create`
             model="text-davinci-003",
             prompt=f"You are a helpful assistant for a UV air purifier company.\nUser: {user_message}\nAssistant:",
             max_tokens=150
