@@ -24,7 +24,7 @@ def chat():
         # Send the user's message to OpenAI's API
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt=f"You are a helpful assistant for a UV air purifier company.\nUser: {user_message}\nAssistant:",
+            prompt="You are a helpful assistant for a UV air purifier company.\nUser: {user_message}\nAssistant:",
             max_tokens=150
         )
 
