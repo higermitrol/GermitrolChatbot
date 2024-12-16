@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify, send_from_directory
-from openai import OpenAI
+import openai
 
 # Set your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
