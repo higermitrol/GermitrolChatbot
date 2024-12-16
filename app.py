@@ -10,7 +10,7 @@ if not openai.api_key:
 
 app = Flask(__name__)
 
-@chatbot_server.route('/chat', methods=['POST'])
+@app.route('/chat', methods=['POST'])
 def chat():
     try:
         user_message = request.json.get("message")
