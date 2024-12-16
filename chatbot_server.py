@@ -8,7 +8,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 if not openai.api_key:
     raise ValueError("OPENAI_API_KEY environment variable is not set")
 
-chatbot_server = Flask(__name__)
+app = Flask(__name__)
 
 @chatbot_server.route('/chat', methods=['POST'])
 def chat():
@@ -32,4 +32,4 @@ def chat():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    chatbot_server.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000)
