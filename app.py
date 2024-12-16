@@ -22,7 +22,7 @@ def chat():
             return jsonify({"error": "Message is required"}), 400
 
         # Use the ChatCompletion API
-        response = openai.ChatCompletion.create(
+        response = openai.Chat.create(
             model="gpt-3.5-turbo",  # Use a chat model like gpt-3.5-turbo or gpt-4
             messages=[
                 {"role": "system", "content": "You are a helpful assistant for a UV air purifier company."},
