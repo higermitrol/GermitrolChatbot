@@ -28,7 +28,7 @@ def chat():
             max_tokens=150
         )
 
-        reply = response.choices[0].text.strip()
+        reply = response['choices'][0]['text'].strip()
         return jsonify({"reply": reply})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
