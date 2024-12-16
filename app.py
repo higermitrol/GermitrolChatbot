@@ -30,8 +30,15 @@ def chat():
             ]
         )
 
-        reply = response["choices"][0]["message"]["content"]
-        return jsonify({"reply": reply})
+        # Debugging: Log the response from OpenAI
+        print("OpenAI Response:", response)
+
+        # Check if the response contains the expected data
+        if response and response.get("choices") and response["choices"][0].get("message"):
+            reply = response["choices"][0]["message"]["content"]
+            return jsonify({"reply": reply})
+        else:
+            return jsonify({"error": "Invalid response from OpenAI"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
