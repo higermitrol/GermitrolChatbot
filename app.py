@@ -21,7 +21,7 @@ def chat():
         if not user_message:
             return jsonify({"error": "Message is required"}), 400
 
-        # Send the user's message to OpenAI's Chat API
+        # Send the user's message to OpenAI's API
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=f"You are a helpful assistant for a UV air purifier company.\nUser: {user_message}\nAssistant:",
