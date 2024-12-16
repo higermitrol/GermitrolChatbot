@@ -38,8 +38,17 @@
             });
             const data = await response.json();
             const chatBox = document.getElementById('chat-box');
-            chatBox.innerHTML += `<div class="chat-message"><strong>You:</strong> ${message}</div>`;
-            chatBox.innerHTML += `<div class="chat-message"><strong>Bot:</strong> ${data.response}</div>`;
+            
+            // Debugging: Log the response from the server
+            console.log("Server Response:", data);
+            
+            if (data.reply) {
+                chatBox.innerHTML += `<div class="chat-message"><strong>You:</strong> ${message}</div>`;
+                chatBox.innerHTML += `<div class="chat-message"><strong>Bot:</strong> ${data.reply}</div>`;
+            } else if (data.error) {
+                chatBox.innerHTML += `<div class="chat-message"><strong>Error:</strong> ${data.error}</div>`;
+            }
+            
             document.getElementById('chat-input').value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
         }
